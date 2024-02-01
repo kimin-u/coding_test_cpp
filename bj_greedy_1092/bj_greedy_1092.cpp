@@ -37,14 +37,18 @@ int main(void) {
 	while (true) {
 		int index = 0;
 		for (int i = 0; i < m; i++) {
-			if (crain[index] > box[i]) {
+			if (index == n) break;
+			if (crain[index] >= box[i]) {
 				index++;
 				box.erase(box.begin() + i);
 				m--;
 				i--;
 			}
+
 		}
 		time++;
+
+		if (box.size() == 0) break;
 	}
 
 	cout << time;
