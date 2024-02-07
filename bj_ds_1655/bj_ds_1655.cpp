@@ -11,23 +11,37 @@ int main(void) {
 	cin.tie(NULL);
 
 	cin >> n;
-	//여태 입력된 수중에 가장 가운데 수를 출력하기 
-	//짝수개가 입력된 경우에는 작은 수 출력하기
-	priority_queue<int, vector<int>, greater<int>> pq;
-	
-	int prev = INTMIN;
 
-	for (int i = 1; i <= n; i++) {
-		int k; cin >> k;
-		pq.push(k);
-		if (i % 2 == 1) {
-			int tmp = pq.top();
-			pq.pop();
+	priority_queue<int, vector<int>, less<int> > max_pq;
+	priority_queue<int, vector<int>, greater<int>> min_pq;
 
-			if (prev < tmp) {
-				prev = tmp;
+
+	for (int i = 0; i < n; i++) {
+		int tmp; cin >> tmp;
+		int len_max = max_pq.size();
+		int len_min = min_pq.size();
+
+		if (len_max == len_min) {
+			max_pq.push(tmp);
+		}
+		else min_pq.push(tmp);
+
+		if (!max_pq.empty() && !min_pq.empty()) {
+			if (max_pq.top() > min_pq.top()) {
+				int a = max_pq.top(); max_pq.pop();
+				int b = min_pq.top(); min_pq.pop();
+
+				max_pq.push(b);
+				min_pq.push(a);
 			}
 		}
-		cout << prev << "\n";
+
+		cout << max_pq.top() << "\n";
 	}
+
+	return 0;
+
+
+
+
 }
